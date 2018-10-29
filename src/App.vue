@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <Timeline ref="Timeline"/>
+    <div class="sidebar-main">
+    
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Timeline from './components/Timeline.vue'
+import moment from 'moment'
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Timeline
+  },
+  methods:{
+    addEvent(start, end, title){
+      this.$refs.Timeline.addEvent(start, end, title)
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style >
+  .container{
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .sidebar-main{
+    position: absolute;
+    top:0;
+    right:0;
+    height:95vh;
+    width:300px;
+    background:#ccc;
+  }
 </style>

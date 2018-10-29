@@ -1,0 +1,153 @@
+<template>
+  <div class="timeline-main">
+    <Hour v-for="(hour, i) in hours" :key="i" :hour='i' :start-percentage="(hour.active)?hour.start:''" :fill-percentage="(hour.active)?hour.end:''" :is-active="hour.active"/>
+  </div>
+</template>
+
+<script>
+import Hour from './Hour.vue'
+export default {
+  name: 'Timeline',
+  data: function(){
+    return{
+    hours:[
+      {
+        active:true,
+        start:"10%",
+        end:"80%",
+      },
+      {
+        active:true,
+        start:'0',
+        end:"100%",
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      },
+      {
+        active:false,
+        start:'0',
+        end:'0',
+      }
+    ]
+    }
+  },
+  methods:{
+
+  },
+  components:{
+    Hour
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .timeline-main{
+    width:300px;
+    background:#ccc;
+    border: 1px solid #000
+  }
+</style>
