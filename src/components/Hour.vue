@@ -1,12 +1,12 @@
 <template>
-  <div class="hour-main" :class="{active:isActive}">
+  <div class="hour-main" :class="{active:isActive, 'current':(isCurrent == Hour-1)}">
     <span class="start-hour">
         {{Hour-1 | moment}}
     </span>
     <span class="end-hour">
         {{`${Hour-1}:59` | moment}}
     </span>
-    <Filler :fill-background="fillBackground || '#FFF'" :start-percentage="startPercentage" :fill-percentage="fillPercentage"/>   
+    <Filler v-for="(start, index) of startPercentage" :key="index" :fill-background="fillBackground[index]" :start-percentage="startPercentage[index]" :fill-percentage="fillPercentage[index]" :total="startPercentage.length"/>   
   </div>
 </template>
 
@@ -18,9 +18,10 @@ export default {
   props: {
     isActive: Boolean,
     Hour: Number,
-    fillPercentage: String,
-    startPercentage: String,
-    fillBackground: String
+    fillPercentage: Array,
+    startPercentage: Array,
+    fillBackground: Array,
+    isCurrent: String
   },
   components: {
     Filler
@@ -29,8 +30,7 @@ export default {
     moment: function(date) {
       return moment(date, "hh:mm").format("hh:mm a");
     }
-  },
-  methods: {}
+  }
 };
 </script>
 
@@ -38,14 +38,17 @@ export default {
 <style scoped>
 .hour-main {
   position: relative;
-  height: 25px;
+  height: 30px;
   width: 300px;
-  background: #666;
+  background: #ccc;
   border-bottom: 1px solid #000;
+}
+.hour-main.current {
+  border: 1px solid red;
 }
 .start-hour,
 .end-hour {
-  font-size: 11px;
+  font-size: 12px;
   vertical-align: bottom;
   position: absolute;
   bottom: 0;

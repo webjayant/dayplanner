@@ -1,21 +1,21 @@
 <template>
-    <span class="filler" :style="{width:fillPercentage,left:startPercentage, background:fillBackground||'#fff'}">
+    <span class="filler" :style="{width:fillPercentage,left:startPercentage, background:fillBackground, height:this.height}">
     </span>   
 </template>
 
 <script>
-import moment from "moment";
 export default {
   name: "Hour",
   props: {
     fillPercentage: String,
     startPercentage: String,
-    fillBackground: String
+    fillBackground: String,
+    total: Number
   },
-  filters: {
-    moment: function(date) {
-      return moment(date, "hh:mm").format("hh:mm a");
-    }
+  data() {
+    return {
+      height: `${100 / this.total}%`
+    };
   }
 };
 </script>
