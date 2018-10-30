@@ -135,7 +135,9 @@ export default {
     }
   },
   methods:{
-
+    addEvent(start, end, title){
+      console.log('TimeLine', start, end, title)
+    }
   },
   components:{
     Hour

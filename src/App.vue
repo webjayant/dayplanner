@@ -54,39 +54,57 @@ export default {
   data() {
     return {
       eventTitle: "",
-      startHour: "",
-      startMin: "",
-      startAP: "",
-      endHour: "",
-      endMin: "",
-      endAP: "",
-      startTime: "",
-      endTime: "",
+      startHour: null,
+      startMin: null,
+      startAP: null,
+      endHour: null,
+      endMin: null,
+      endAP: null,
+      startTime: null,
+      endTime: null,
       isTimeErr: false,
-      timeErr: ""
+      timeErr: null
     };
   },
   methods: {
     addEvent() {
-      // this.$refs.Timeline.addEvent(start, end, title);
-      this.startTime = moment(
-        `${this.startHour}${this.startMin}${this.startAP}`,
+      if(!this.eventTitle && !this.isTimeErr){
+        this.isTimeErr = true;
+        this.timeErr = "Event Title Cannot be Empty";
+        return false
+      }else{
+        this.isTimeErr = false;
+      }
+      if(this.startHour && this.startMin && this.startAP && this.endHour && this.endMin && this.endAP && !this.isTimeErr){
+        this.startTime = moment(
+        `${this.startHour}:${this.startMin}${this.startAP}`,
         "hma"
-      ).format("hh:mma");
-      this.endTime = moment(
-        `${this.endHour}${this.endMin}${this.endAP}`,
-        "hma"
-      ).format("hh:mma");
-      if (
+        ).format("hh:mma");
+          this.endTime = moment(
+          `${this.endHour}:${this.endMin}${this.endAP}`,
+          "hma"
+          ).format("hh:mma");
+      }else{
+          this.isTimeErr = true;
+          this.timeErr = "Start or End time cannot be empty";
+          return false
+      }
+      if (this.timeErr &&
         this.minutesOfDay(moment(this.startTime, "h:mma")) >
         this.minutesOfDay(moment(this.endTime, "h:mma"))
       ) {
         this.isTimeErr = true;
         this.timeErr = "Start Time Cannot be Greater Than End Time";
+        return false;
+      }else{
+        this.isTimeErr = false;
+        this.timeErr = "";
+      }
+      if(!this.isTimeErr){
+        this.$refs.Timeline.addEvent(this.startTime, this.endTime, this.eventTitle);
       }
     },
     minutesOfDay(m) {
-      console.log(m.minutes() + m.hours() * 60);
       return m.minutes() + m.hours() * 60;
     }
   }
