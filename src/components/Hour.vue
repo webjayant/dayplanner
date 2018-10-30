@@ -40,11 +40,13 @@ export default {
   position: relative;
   height: 30px;
   width: 300px;
-  background: #ccc;
-  border-bottom: 1px solid #000;
+  background: #fff;
+  margin: 2px;
+  border: 1px solid #000;
+  border-radius:5px; 
 }
 .hour-main.current {
-  border: 1px solid red;
+  border: 1px solid #23bd51;
 }
 .start-hour,
 .end-hour {
@@ -53,6 +55,7 @@ export default {
   position: absolute;
   bottom: 0;
   z-index: 2;
+  padding: 0 5px;
 }
 .end-hour {
   right: 0;

@@ -305,8 +305,7 @@ export default {
       let endAP = endHour > 12 ? "PM" : "AM";
       startHour = startHour > 12 ? startHour - 12 : startHour;
       endHour = endHour > 12 ? endHour - 12 : endHour;
-      let color = this.events[index].color;
-      this.events.splice(index, 1);
+      this.removeEvent(index, start, end, title)
       this.$parent.editEvent(
         title,
         startHour,
@@ -316,6 +315,36 @@ export default {
         endMin,
         endAP
       );
+    },
+    removeEvent(index, start, end, title){
+      this.events.splice(index, 1);
+      let startIndex = moment(
+        moment(start, "hh:mma").format("HHMM"),
+        "HHMM"
+      ).hour();
+      let endIndex = moment(
+        moment(end, "hh:mma").format("HHMM"),
+        "HHMM"
+      ).hour();
+      let sindex = this.hours[startIndex].title.indexOf(title)
+      this.hours[startIndex].title.splice(sindex,1);
+      this.hours[startIndex].fillBackground.splice(sindex,1);
+      this.hours[startIndex].start.splice(sindex,1);
+      this.hours[startIndex].end.splice(sindex,1);
+      if (endIndex > startIndex) {
+        for (let i = startIndex + 1; i < endIndex; i++) {
+          let findex = this.hours[i].title.indexOf(title)
+          this.hours[i].title.splice(findex,1);
+          this.hours[i].fillBackground.splice(findex,1);
+          this.hours[i].start.splice(findex,1);
+          this.hours[i].end.splice(findex,1);
+        }
+      }
+      let eindex = this.hours[endIndex].title.indexOf(title)
+      this.hours[endIndex].title.splice(eindex,1);
+      this.hours[endIndex].fillBackground.splice(eindex,1);
+      this.hours[endIndex].start.splice(eindex,1);
+      this.hours[endIndex].end.splice(eindex,1);
     }
   },
   components: {
@@ -330,8 +359,8 @@ export default {
 .timeline-main {
   width: 300px;
   display: inline-block;
-  background: #ccc;
-  border: 1px solid #000;
+  background: #fff;
+  padding-bottom:30px 
 }
 .all-events {
   position: absolute;

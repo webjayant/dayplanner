@@ -3,42 +3,40 @@
     <h1>{{this.getDate()}}</h1>
     <Timeline ref="Timeline"/>
     <div class="addnewevent">
-      <button class="btn btn-new-event" @click="addNewEvent">
+      <button class="btn-new-event" @click="addNewEvent">
         Creat New Event
       </button>
     </div>
     <div class="top-main" :style="{right:(this.isTopBar)?'520px':'-100%'}">
       <h2>Add New Event</h2>
-      <a class="close" @click="addNewEvent">x</a>
+      <a class="close" @click="closeEvent">x</a>
       <div>
         <input type="text" placeholder="Enter Event Title" class="event-title" v-model="eventTitle">
       </div>
       <div class="start-time">
+        <label class="label">Select Start Time</label>
         <select class="select-option" v-model="startHour">
-          <option disabled selected='selected'>Select Start Hour</option>
           <option v-for="index in 12" :key="index">{{index}}</option>
         </select>
         <select class="select-option" v-model="startMin">
-          <option disabled selected='selected'>Select Start Min</option>
+          <option :key="0">0</option>
           <option v-for="index in 59" :key="index">{{index}}</option>
         </select>
         <select class="select-option" v-model="startAP">
-          <option disabled selected='selected'>Select AM/PM</option>
           <option>AM</option>
           <option>PM</option>
         </select>
       </div>
       <div class="end-time">
+        <label class="label">Select End Time</label>
         <select class="select-option" v-model="endHour">
-          <option disabled selected='selected'>Select end Hour</option>
           <option v-for="index in 12" :key="index">{{index}}</option>
         </select>
         <select class="select-option" v-model="endMin">
-          <option disabled selected='selected'>Select end Min</option>
+          <option :key="0">0</option>
           <option v-for="index in 59" :key="index">{{index}}</option>
         </select>
         <select class="select-option" v-model="endAP">
-          <option disabled selected='selected'>Select AM/PM</option>
           <option>AM</option>
           <option>PM</option>
         </select>
@@ -72,12 +70,13 @@ export default {
       startTime: null,
       endTime: null,
       isTimeErr: false,
-      timeErr: null
+      timeErr: null,
+      isEditEvent:false
     };
   },
   methods: {
-    addNewEvent(checkEdit) {
-      if (checkEdit) {
+    addNewEvent() {
+      if (!this.isEditEvent) {
         this.startHour = null;
         this.startMin = null;
         this.startAP = null;
@@ -88,15 +87,21 @@ export default {
       }
       this.isTopBar = !this.isTopBar;
     },
+    closeEvent(){
+      this.addEvent()
+      this.isTopBar = false
+    },
     addEvent() {
-      if (!this.eventTitle && !this.isTimeErr) {
+      if (!this.eventTitle || !this.isTimeErr) {
         this.isTimeErr = true;
+        if(!this.isTopBar){
+          this.isTopBar = true;
+        }
         this.timeErr = "Event Title Cannot be Empty";
         return false;
       } else {
         this.isTimeErr = false;
       }
-      console.log(this.startAP, this.endAP);
       if (
         this.startHour &&
         this.startMin &&
@@ -116,6 +121,9 @@ export default {
         ).format("hh:mma");
       } else {
         this.isTimeErr = true;
+        if(!this.isTopBar){
+          this.isTopBar = true;
+        }
         this.timeErr = "Start or End time cannot be empty";
         return false;
       }
@@ -126,6 +134,9 @@ export default {
         (this.startAP == "PM" && this.endAP == "AM")
       ) {
         this.isTimeErr = true;
+        if(!this.isTopBar){
+          this.isTopBar = true;
+        }
         this.timeErr = "Start Time Cannot be Greater Than End Time";
         return false;
       } else {
@@ -149,7 +160,8 @@ export default {
       this.startAP = startAP;
       this.endAP = endAP;
       this.title = title;
-      this.addNewEvent(false);
+      this.isEditEvent=true;
+      this.addNewEvent();
     },
     getDate() {
       return moment().format("DD MMMM YYYY :: hh:mma");
@@ -185,7 +197,7 @@ body {
   z-index: 3;
   height: 300px;
   width: 400px;
-  background: #ccc;
+  background: #f1f1f1;
   border-radius: 5px;
   border: 2px solid #777;
   padding: 10px;
@@ -209,6 +221,22 @@ body {
   width: 300px;
   display: inline-block;
   vertical-align: top;
+}
+.btn-new-event{
+  margin: 1px auto;
+  display: block;
+  background: #fff;
+  color:#777;
+  border:2px solid #777;
+  border-radius: 5px;
+  height: 32px;
+  width: 150px;
+  transition:all .3s ease-in-out;
+}
+.btn-new-event:focus, .btn-new-event:hover, .btn-new-event:active{
+  color:#fff;
+  background: #777;
+  cursor: pointer;
 }
 .addnewevent {
   margin: 0 10px;
@@ -244,5 +272,16 @@ body {
   width: 150px;
   margin: 10px auto;
   display: block;
+  border-radius: 5px;
+  transition: all .3s ease-in-out;
+}
+.btn-add-event:hover, .btn-add-event:focus ,.btn-add-event:active{
+  color:#ccc;
+  background: #555;
+  cursor: pointer;
+}
+.label{
+  display: block;
+  text-align: left;
 }
 </style>

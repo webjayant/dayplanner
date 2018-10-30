@@ -24,6 +24,6 @@ export default {
 <style scoped>
 span.filler {
   position: absolute;
-  height: 100%;
+  border-radius:5px; 
 }
 </style>

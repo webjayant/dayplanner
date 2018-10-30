@@ -33,6 +33,7 @@ export default {
 .event-main {
   padding: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin: 10px 0;
 }
 .event-main p {
   color: #f1f1f1;
@@ -42,5 +43,21 @@ export default {
   font-size: 22px;
   margin-top: 0;
   font-weight: 600;
+}
+.btn-edit-event{
+  background: #fff;
+  color:#777;
+  border: 2px solid #777;
+  height: 32px;
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 5px;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+}
+.btn-edit-event:hover, .btn-edit-event:focus, .btn-edit-event:active{
+  background: #777;
+  color: #fff;
 }
 </style>
