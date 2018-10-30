@@ -245,10 +245,13 @@ export default {
     };
   },
   methods: {
+    saveEvent(){
+      localStorage.setItem('events',JSON.stringify(this.events))
+    },
     getTime() {
       return moment().format("HH");
     },
-    addEvent(start, end, title) {
+    addEvent(start, end, title,save=false) {
       let color = this.fillArray[Math.floor(Math.random() * 50)];
       this.events.push({
         title: title,
@@ -256,6 +259,9 @@ export default {
         end: end,
         background: color
       });
+      if(!save){
+        this.saveEvent()
+      }
       this.displayEvent(start, end, title, color);
     },
     displayEvent(start, end, title, color) {
@@ -320,6 +326,7 @@ export default {
     },
     removeEvent(index, start, end, title){
       this.events.splice(index, 1);
+      this.saveEvent()
       let startIndex = moment(
         moment(start, "hh:mma").format("HHMM"),
         "HHMM"
@@ -348,6 +355,12 @@ export default {
       this.hours[endIndex].start.splice(eindex,1);
       this.hours[endIndex].end.splice(eindex,1);
     }
+  },
+  created:function(){
+    let events = JSON.parse(localStorage.getItem('events'));
+    events.forEach(event => {
+      this.addEvent(event.start, event.end, event.title,true)
+    });
   },
   components: {
     Hour,
