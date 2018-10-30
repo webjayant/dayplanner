@@ -92,7 +92,7 @@ export default {
       this.isTopBar = false
     },
     addEvent() {
-      if (!this.eventTitle || !this.isTimeErr) {
+      if (!this.eventTitle) {
         this.isTimeErr = true;
         if(!this.isTopBar){
           this.isTopBar = true;

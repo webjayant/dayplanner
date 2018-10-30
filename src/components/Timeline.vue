@@ -293,7 +293,7 @@ export default {
       this.hours[endIndex].start.push(`0%`);
       this.hours[endIndex].end.push(`${endPercentage}%`);
     },
-    editEvent(index) {
+    editEvent(index, deleteEvent) {
       let title = this.events[index].title;
       let start = moment(this.events[index].start, "hh:mma");
       let end = moment(this.events[index].end, "hh:mma");
@@ -306,15 +306,17 @@ export default {
       startHour = startHour > 12 ? startHour - 12 : startHour;
       endHour = endHour > 12 ? endHour - 12 : endHour;
       this.removeEvent(index, start, end, title)
-      this.$parent.editEvent(
-        title,
-        startHour,
-        startMin,
-        startAP,
-        endHour,
-        endMin,
-        endAP
-      );
+      if(!deleteEvent){
+        this.$parent.editEvent(
+          title,
+          startHour,
+          startMin,
+          startAP,
+          endHour,
+          endMin,
+          endAP
+        );
+      }
     },
     removeEvent(index, start, end, title){
       this.events.splice(index, 1);

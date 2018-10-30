@@ -4,9 +4,14 @@
           <p class="title">{{event.title}}</p>
           <p><span class="bold">Start-time: </span>{{event.start}}</p>
           <p><span class="bold">End-time: </span>{{event.end}}</p>
+          <div class="text-center">
           <button class="btn-edit-event" @click="editEvent(index)">
               Edit Event
           </button>
+          <button class="btn-edit-event" @click="deleteEvent(index)">
+              Delete Event
+          </button>
+          </div>
       </div>
   </div>
 </template>
@@ -19,8 +24,11 @@ export default {
   },
   methods: {
     editEvent(index) {
-      this.$parent.editEvent(index);
-    }
+      this.$parent.editEvent(index, false);
+    },
+    deleteEvent(index) {
+      this.$parent.editEvent(index, true);
+    },
   }
 };
 </script>
@@ -50,8 +58,8 @@ export default {
   border: 2px solid #777;
   height: 32px;
   width: 100px;
-  margin: 0 auto;
-  display: block;
+  margin: 0 10px;
+  display: inline-block;
   border-radius: 5px;
   transition: all .3s ease-in-out;
   cursor: pointer;
@@ -59,5 +67,8 @@ export default {
 .btn-edit-event:hover, .btn-edit-event:focus, .btn-edit-event:active{
   background: #777;
   color: #fff;
+}
+.text-center{
+  text-align: center;
 }
 </style>
