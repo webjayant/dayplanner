@@ -23,7 +23,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 span.filler {
-  position: absolute;
-  border-radius:5px; 
+  display: block;
+  border-radius: 5px;
 }
 </style>
