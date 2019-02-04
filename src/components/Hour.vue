@@ -44,6 +44,8 @@ export default {
   margin: 2px;
   border: 1px solid #000;
   border-radius:5px; 
+  display:flex;
+  flex-direction: column;
 }
 .hour-main.current {
   border: 1px solid #23bd51;

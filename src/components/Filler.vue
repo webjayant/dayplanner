@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      height: `${100 / this.total}%`
+      height: `100%`
     };
   }
 };
