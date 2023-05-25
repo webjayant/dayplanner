@@ -1,3 +1,5 @@
 module.exports = {
-  baseUrl: "/dayplanner"
-};
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/dayplanner/'
+    : '/'
+}
