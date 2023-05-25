@@ -19,7 +19,7 @@ git commit -m 'deploy'
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
 
-if you are deploying to https://webjayant.github.io/dayplanner
+# if you are deploying to https://webjayant.github.io/dayplanner
 git push -f git@github.com:webjayant/dayplanner.git main:gh-pages
 
 cd -
